@@ -1,0 +1,222 @@
+[gd_scene load_steps=18 format=3 uid="uid://5pstw7o6n8sx"]
+
+[ext_resource type="Shader" path="res://shaders/checker.gdshader" id="1_0bf2s"]
+[ext_resource type="Script" path="res://scripts/obstacle_spawner.gd" id="2_i34kh"]
+[ext_resource type="PackedScene" uid="uid://b8agpgq5bwtfy" path="res://scenes/gate.tscn" id="3_7vfsq"]
+[ext_resource type="Script" path="res://scripts/sphere.gd" id="4_vq85a"]
+[ext_resource type="PackedScene" uid="uid://bqxgqgxq5fnl8" path="res://assets/newknight.tscn" id="5_0d4o2"]
+[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="6_28h7d"]
+[ext_resource type="Script" path="res://scripts/crates.gd" id="7_4uqe7"]
+[ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="9_53x7s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j7rfl"]
+render_priority = 0
+shader = ExtResource("1_0bf2s")
+shader_parameter/world_uv = false
+shader_parameter/object_uv = false
+shader_parameter/object_uv_scale = Vector2(1, 1)
+shader_parameter/preset_color = 0
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/metalic = 0.25
+shader_parameter/roughness = 0.75
+shader_parameter/grid_scale = 1.0
+shader_parameter/grid_width = 0.01
+shader_parameter/grid_color = Color(0.8, 0.8, 0.8, 1)
+shader_parameter/inside_scale = 1.0
+shader_parameter/inside_width = 0.01
+shader_parameter/inside_color = Color(0.8, 0.8, 0.8, 0.8)
+shader_parameter/checkered = true
+shader_parameter/sub_checkered_grid = false
+shader_parameter/checkered_color = Color(0.25, 0.25, 0.25, 1)
+shader_parameter/checkered_blend_color = 0.1
+shader_parameter/use_inside_uv = false
+shader_parameter/use_albedo_color = false
+shader_parameter/albedo_alpha = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k6ys0"]
+render_priority = 0
+shader = ExtResource("1_0bf2s")
+shader_parameter/world_uv = false
+shader_parameter/object_uv = false
+shader_parameter/object_uv_scale = Vector2(1, 1)
+shader_parameter/preset_color = 0
+shader_parameter/base_color = Color(0, 0, 0, 1)
+shader_parameter/metalic = 0.25
+shader_parameter/roughness = 0.75
+shader_parameter/grid_scale = 1.0
+shader_parameter/grid_width = 0.01
+shader_parameter/grid_color = Color(0.8, 0.8, 0.8, 1)
+shader_parameter/inside_scale = 1.0
+shader_parameter/inside_width = 0.145
+shader_parameter/inside_color = Color(0.733044, 0, 0, 0.8)
+shader_parameter/checkered = true
+shader_parameter/sub_checkered_grid = false
+shader_parameter/checkered_color = Color(0.925073, 0.202104, 0, 1)
+shader_parameter/checkered_blend_color = 0.1
+shader_parameter/use_inside_uv = false
+shader_parameter/use_albedo_color = false
+shader_parameter/albedo_alpha = 0.5
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t64i1"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_adbmc"]
+sky_material = SubResource("ProceduralSkyMaterial_t64i1")
+
+[sub_resource type="Environment" id="Environment_5rpew"]
+background_mode = 2
+sky = SubResource("Sky_adbmc")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_wljuq"]
+radius = 2.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_tgcp3"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lis3h"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h73pm"]
+size = Vector3(126.452, 32.7288, 1)
+
+[node name="Main" type="Node3D"]
+
+[node name="ProtoController" parent="." instance=ExtResource("9_53x7s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.3198, 0.5, -32.0038)
+can_sprint = true
+can_freefly = true
+input_left = "mv_left"
+input_right = "mv_right"
+input_forward = "mv_fwd"
+input_back = "mv_back"
+input_jump = "jump"
+
+[node name="RayCast3D" type="RayCast3D" parent="ProtoController"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.39558, 0)
+target_position = Vector3(-2, 0, 0)
+
+[node name="Level" type="Node" parent="."]
+
+[node name="StartingPoint" type="CSGBox3D" parent="Level"]
+use_collision = true
+size = Vector3(100, 1, 100)
+material = SubResource("ShaderMaterial_j7rfl")
+
+[node name="CrashZone" type="CSGBox3D" parent="Level" groups=["floor"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -843.174, -1386.45)
+use_collision = true
+size = Vector3(100, 1, 394.147)
+material = SubResource("ShaderMaterial_j7rfl")
+
+[node name="TransitionRamp" type="CSGBox3D" parent="Level" groups=["floor"]]
+transform = Transform3D(1, 0, 0, 0, 0.958153, 0.286257, 0, -0.286257, 0.958153, -2.43098, -835.519, -1326.13)
+use_collision = true
+size = Vector3(100, 1, 65.7627)
+material = SubResource("ShaderMaterial_j7rfl")
+
+[node name="Ramp" type="CSGBox3D" parent="Level" groups=["floor"]]
+transform = Transform3D(1, 0, 0, 0, 0.834627, 0.550816, 0, -0.550816, 0.834627, 0, -421.554, -685.268)
+use_collision = true
+size = Vector3(100, 1, 1529.08)
+material = SubResource("ShaderMaterial_j7rfl")
+
+[node name="LeftWall" type="CSGBox3D" parent="Level" groups=["wall"]]
+transform = Transform3D(0.866026, -0.5, 0, 0.417424, 0.722999, 0.550481, -0.27524, -0.47673, 0.834848, -74.4594, -390.867, -705.499)
+use_collision = true
+size = Vector3(5.161, 100, 1529.08)
+material = SubResource("ShaderMaterial_k6ys0")
+
+[node name="RightWall" type="CSGBox3D" parent="Level" groups=["wall"]]
+transform = Transform3D(0.866026, 0.5, 0, -0.417424, 0.722999, 0.550481, 0.27524, -0.47673, 0.834848, 72.1988, -395.978, -702.128)
+use_collision = true
+size = Vector3(5.161, 100, 1529.08)
+material = SubResource("ShaderMaterial_k6ys0")
+
+[node name="ObstacleSpawner" type="Node3D" parent="Level"]
+script = ExtResource("2_i34kh")
+
+[node name="Gate" parent="Level" instance=ExtResource("3_7vfsq")]
+transform = Transform3D(1, 0, 0, 0, 0.898932, 0.438089, 0, -0.438089, 0.898932, 0, -52.8173, -216.012)
+visible = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5rpew")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Sphere" type="RigidBody3D" parent="." groups=["sphere"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5781, 3.26073, -44.8732)
+script = ExtResource("4_vq85a")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sphere"]
+shape = SubResource("SphereShape3D_wljuq")
+
+[node name="Knight" parent="Sphere" instance=ExtResource("5_0d4o2")]
+transform = Transform3D(1.6, 0, 0, 0, 1.6, 0, 0, 0, 1.6, 0, -1.97495, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766045, 0, -0.766045, 0.642788, -19.5781, 56.2874, -15.0436)
+script = ExtResource("6_28h7d")
+
+[node name="Camera3D2" type="Camera3D" parent="."]
+transform = Transform3D(0.99828, 0.0175305, -0.0559478, 0, 0.954253, 0.299002, 0.05863, -0.298488, 0.952611, 0.65984, -828.589, -1431.07)
+
+[node name="Crates" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.776, -841.323, -1471.82)
+script = ExtResource("7_4uqe7")
+
+[node name="Crate1" type="RigidBody3D" parent="Crates"]
+mass = 0.01
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Crates/Crate1"]
+mesh = SubResource("BoxMesh_tgcp3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Crates/Crate1"]
+shape = SubResource("BoxShape3D_lis3h")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SpeedLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 16.0
+offset_right = 100.0
+offset_bottom = 52.0
+text = "Speed: 0"
+
+[node name="CenterContainer" type="CenterContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PushLabel" type="Label" parent="UI/CenterContainer"]
+layout_mode = 2
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64.6353)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_h73pm")
+
+[connection signal="body_entered" from="Area3D" to="Camera3D" method="_on_area_3d_body_entered"]
