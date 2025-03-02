@@ -1,10 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8agpgq5bwtfy"]
+[gd_scene load_steps=4 format=3 uid="uid://b8agpgq5bwtfy"]
 
-[ext_resource type="Script" path="res://scripts/gate.gd" id="1_17jm3"]
 [ext_resource type="Shader" path="res://shaders/gate.gdshader" id="1_gm05l"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_052qi"]
-albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5rlq5"]
 render_priority = 0
@@ -22,47 +18,23 @@ shader_parameter/star_axis_speed = 0.051
 shader_parameter/star_move_mode = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bjusd"]
-size = Vector3(50.9004, 96.833, 1)
+size = Vector3(36.61, 67.8204, 1)
 
-[node name="Gate" type="Node3D"]
-script = ExtResource("1_17jm3")
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.1868, 0.88841)
-size = Vector3(100, 97.3735, 2.02882)
-material = SubResource("StandardMaterial3D_052qi")
-
-[node name="Door1" type="CSGBox3D" parent="CSGBox3D" groups=["door"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.8059, -3.34374, 0)
-size = Vector3(42.6892, 90, 4.696)
+[node name="Door1" type="CSGBox3D" groups=["door"]]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+size = Vector3(33.8252, 67.2394, 4.696)
 material = SubResource("ShaderMaterial_5rlq5")
 
-[node name="Label3D" type="Label3D" parent="CSGBox3D/Door1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.561935, 23.4576, 15.8925)
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.911204, 3.43346, 7.41109)
 text = "Multiply
 "
 font_size = 900
 outline_size = 127
 uppercase = true
 
-[node name="MultArea3D" type="Area3D" parent="CSGBox3D/Door1"]
+[node name="MultArea3D" type="Area3D" parent="."]
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="CSGBox3D/Door1/MultArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.13907, -0.31251, 0)
-shape = SubResource("BoxShape3D_bjusd")
-
-[node name="Door2" type="CSGBox3D" parent="CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.4513, -3.65625, 0)
-size = Vector3(46.8914, 90, 4.696)
-material = SubResource("ShaderMaterial_5rlq5")
-
-[node name="Label3D2" type="Label3D" parent="CSGBox3D/Door2" groups=["door"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.01394, 23.7701, 15.8925)
-text = "GROW"
-font_size = 900
-uppercase = true
-
-[node name="MassArea3D" type="Area3D" parent="CSGBox3D/Door2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/Door2/MassArea3D"]
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="MultArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.127016, 0.449579, 0)
 shape = SubResource("BoxShape3D_bjusd")

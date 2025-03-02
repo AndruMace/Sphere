@@ -1,10 +1,12 @@
 class_name Sphere extends RigidBody3D
 const particles = preload("res://scenes/particle_playground.tscn")
 
-@export var bounce_force = 30
+@export var bounce_force = 40
 var fwd = Vector3.FORWARD
-@onready var speed_label: Label = $"../UI/SpeedLabel"
+@onready var speed_label: Label = $"../UI/VBoxContainer/SpeedLabel"
+@onready var score_label: Label = $"../UI/VBoxContainer/ScoreLabel"
 
+var score := 0
 var apply_speed := false
 
 func _ready() -> void:
@@ -18,14 +20,16 @@ func _physics_process(delta: float) -> void:
 	var current_forward_speed = linear_velocity.dot(fwd)
 	if speed_label != null:
 		speed_label.text = "Speed: " + str(int(current_forward_speed))
-	if current_forward_speed < 100 and apply_speed:
-		apply_central_force(fwd * 5)
+	if current_forward_speed < 80 and apply_speed:
+		apply_central_force(fwd * 10)
 
 func _on_body_entered(body):
 	if body.is_in_group("floor"):
 		print("Speed Activated")
 		apply_speed = true
 	if body.is_in_group("cylinder"):
+		score += 10
+		score_label.text = "Score: " + str(score)
 		var collision_point = get_collision_point(body)
 		var collision_normal = (global_transform.origin - collision_point).normalized()
 		apply_central_impulse(collision_normal * bounce_force)

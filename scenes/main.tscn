@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://5pstw7o6n8sx"]
+[gd_scene load_steps=17 format=3 uid="uid://5pstw7o6n8sx"]
 
 [ext_resource type="Shader" path="res://shaders/checker.gdshader" id="1_0bf2s"]
 [ext_resource type="Script" path="res://scripts/obstacle_spawner.gd" id="2_i34kh"]
-[ext_resource type="PackedScene" uid="uid://b8agpgq5bwtfy" path="res://scenes/gate.tscn" id="3_7vfsq"]
 [ext_resource type="Script" path="res://scripts/sphere.gd" id="4_vq85a"]
 [ext_resource type="PackedScene" uid="uid://bqxgqgxq5fnl8" path="res://assets/newknight.tscn" id="5_0d4o2"]
 [ext_resource type="Script" path="res://scripts/camera_3d.gd" id="6_28h7d"]
@@ -138,10 +137,6 @@ material = SubResource("ShaderMaterial_k6ys0")
 [node name="ObstacleSpawner" type="Node3D" parent="Level"]
 script = ExtResource("2_i34kh")
 
-[node name="Gate" parent="Level" instance=ExtResource("3_7vfsq")]
-transform = Transform3D(1, 0, 0, 0, 0.898932, 0.438089, 0, -0.438089, 0.898932, 0, -52.8173, -216.012)
-visible = false
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5rpew")
 
@@ -151,6 +146,8 @@ shadow_enabled = true
 
 [node name="Sphere" type="RigidBody3D" parent="." groups=["sphere"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.5781, 3.26073, -44.8732)
+mass = 2.0
+gravity_scale = 2.0
 script = ExtResource("4_vq85a")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sphere"]
@@ -188,14 +185,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="SpeedLabel" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 18.0
-offset_top = 16.0
-offset_right = 100.0
-offset_bottom = 52.0
-text = "Speed: 0"
-
 [node name="CenterContainer" type="CenterContainer" parent="UI"]
 layout_mode = 1
 anchors_preset = 8
@@ -212,6 +201,29 @@ grow_vertical = 2
 
 [node name="PushLabel" type="Label" parent="UI/CenterContainer"]
 layout_mode = 2
+
+[node name="ResetLabel" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 71.0
+offset_right = 144.0
+offset_bottom = 94.0
+text = "Press 'R' to reset"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 112.0
+offset_bottom = 63.0
+alignment = 1
+
+[node name="SpeedLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Speed: 0"
+
+[node name="ScoreLabel" type="Label" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Score: 0"
 
 [node name="Area3D" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64.6353)
