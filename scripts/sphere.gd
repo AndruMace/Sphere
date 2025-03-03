@@ -1,7 +1,7 @@
 class_name Sphere extends RigidBody3D
 const particles = preload("res://scenes/particle_playground.tscn")
 
-@export var bounce_force = 40
+@export var bounce_force = 20
 var fwd = Vector3.FORWARD
 @onready var speed_label: Label = $"../UI/VBoxContainer/SpeedLabel"
 @onready var score_label: Label = $"../UI/VBoxContainer/ScoreLabel"
@@ -27,7 +27,7 @@ func _on_body_entered(body):
 	if body.is_in_group("floor"):
 		print("Speed Activated")
 		apply_speed = true
-	if body.is_in_group("cylinder"):
+	if body.is_in_group("enemy"):
 		score += 10
 		score_label.text = "Score: " + str(score)
 		var collision_point = get_collision_point(body)

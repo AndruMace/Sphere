@@ -1,12 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://5pstw7o6n8sx"]
+[gd_scene load_steps=25 format=3 uid="uid://5pstw7o6n8sx"]
 
 [ext_resource type="Shader" path="res://shaders/checker.gdshader" id="1_0bf2s"]
 [ext_resource type="Script" path="res://scripts/obstacle_spawner.gd" id="2_i34kh"]
 [ext_resource type="Script" path="res://scripts/sphere.gd" id="4_vq85a"]
-[ext_resource type="PackedScene" uid="uid://bqxgqgxq5fnl8" path="res://assets/newknight.tscn" id="5_0d4o2"]
+[ext_resource type="PackedScene" uid="uid://1ed0pclwtoqy" path="res://assets/newknight.tscn" id="5_0d4o2"]
 [ext_resource type="Script" path="res://scripts/camera_3d.gd" id="6_28h7d"]
 [ext_resource type="Script" path="res://scripts/crates.gd" id="7_4uqe7"]
+[ext_resource type="PackedScene" uid="uid://gpovwicalyqt" path="res://assets/wall.tscn" id="8_lluiq"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="9_53x7s"]
+[ext_resource type="PackedScene" uid="uid://vcgirn12t05g" path="res://assets/kenney_castle-kit/Models/GLB format/wall-corner.glb" id="9_xnh7d"]
+[ext_resource type="PackedScene" uid="uid://b8wwdsnym6tua" path="res://assets/kenney_castle-kit/Models/GLB format/tower-square.glb" id="10_fqo2v"]
+[ext_resource type="PackedScene" uid="uid://cqd7a0jahgw53" path="res://assets/kenney_castle-kit/Models/GLB format/tower-square-top-roof.glb" id="11_5xcp4"]
+[ext_resource type="PackedScene" uid="uid://d1qpi7hown5r3" path="res://assets/kenney_castle-kit/Models/GLB format/flag-pennant.glb" id="12_plh0m"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_j7rfl"]
 render_priority = 0
@@ -81,10 +86,20 @@ size = Vector3(2, 2, 2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_h73pm"]
 size = Vector3(126.452, 32.7288, 1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_osj0f"]
+size = Vector3(2, 2, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j0n76"]
+albedo_color = Color(0.347006, 0.184528, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yp1qk"]
+material = SubResource("StandardMaterial3D_j0n76")
+height = 0.2
+
 [node name="Main" type="Node3D"]
 
 [node name="ProtoController" parent="." instance=ExtResource("9_53x7s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.3198, 0.5, -32.0038)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.4901, 0.5, -40.3954)
 can_sprint = true
 can_freefly = true
 input_left = "mv_left"
@@ -105,9 +120,9 @@ size = Vector3(100, 1, 100)
 material = SubResource("ShaderMaterial_j7rfl")
 
 [node name="CrashZone" type="CSGBox3D" parent="Level" groups=["floor"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -843.174, -1386.45)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -843.174, -1354.46)
 use_collision = true
-size = Vector3(100, 1, 394.147)
+size = Vector3(100, 1, 330.172)
 material = SubResource("ShaderMaterial_j7rfl")
 
 [node name="TransitionRamp" type="CSGBox3D" parent="Level" groups=["floor"]]
@@ -230,5 +245,185 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64.6353)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("BoxShape3D_h73pm")
+
+[node name="Castle" type="Node" parent="."]
+
+[node name="Walls2" type="Node3D" parent="Castle"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 45.4755, -836.432, -1455.23)
+
+[node name="Wall" parent="Castle/Walls2" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -45, -6.24158, -0.629028)
+
+[node name="Wall2" parent="Castle/Walls2" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -35, -6.24158, -0.629028)
+
+[node name="Wall3" parent="Castle/Walls2" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -25, -6.24158, -0.629028)
+
+[node name="Wall4" parent="Castle/Walls2" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -15, -6.24158, -0.629028)
+
+[node name="Wall5" parent="Castle/Walls2" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -5, -6.24158, -0.629028)
+
+[node name="Wall6" parent="Castle/Walls2" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 5, -6.24158, -0.629028)
+
+[node name="Wall7" parent="Castle/Walls2" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 15, -6.24158, -0.629028)
+
+[node name="Wall8" parent="Castle/Walls2" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 25, -6.24158, -0.629028)
+
+[node name="Wall9" parent="Castle/Walls2" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 35, -6.24158, -0.629028)
+
+[node name="Wall10" parent="Castle/Walls2" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 45, -6.24158, -0.629028)
+
+[node name="wall-corner2" parent="Castle/Walls2" instance=ExtResource("9_xnh7d")]
+transform = Transform3D(-10.1, 0, 8.8297e-07, 0, 10.1, 0, -8.8297e-07, 0, -10.1, -55.3114, -6.24158, 0.0354042)
+
+[node name="Walls3" type="Node3D" parent="Castle"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -44.1984, -836.432, -1455.23)
+
+[node name="Wall" parent="Castle/Walls3" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -45, -6.24158, -0.629028)
+
+[node name="Wall2" parent="Castle/Walls3" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -35, -6.24158, -0.629028)
+
+[node name="Wall3" parent="Castle/Walls3" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -25, -6.24158, -0.629028)
+
+[node name="Wall4" parent="Castle/Walls3" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -15, -6.24158, -0.629028)
+
+[node name="Wall5" parent="Castle/Walls3" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -5, -6.24158, -0.629028)
+
+[node name="Wall6" parent="Castle/Walls3" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 5, -6.24158, -0.629028)
+
+[node name="Wall7" parent="Castle/Walls3" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 15, -6.24158, -0.629028)
+
+[node name="Wall8" parent="Castle/Walls3" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 25, -6.24158, -0.629028)
+
+[node name="Wall9" parent="Castle/Walls3" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 35, -6.24158, -0.629028)
+
+[node name="Wall10" parent="Castle/Walls3" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 45, -6.24158, -0.629028)
+
+[node name="wall-corner2" parent="Castle/Walls3" instance=ExtResource("9_xnh7d")]
+transform = Transform3D(-4.41485e-07, 0, 10.1, 0, 10.1, 0, -10.1, 0, -4.41485e-07, -55.2736, -6.24158, -1.22972)
+
+[node name="tower-square2" parent="Castle" instance=ExtResource("10_fqo2v")]
+transform = Transform3D(45, 0, 0, 0, 70, 0, 0, 0, 45, 0.471674, -842.674, -1449.38)
+
+[node name="tower-square-top-roof2" parent="Castle" instance=ExtResource("11_5xcp4")]
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 1.04757, -755.857, -1448.32)
+
+[node name="flag-pennant2" parent="Castle" instance=ExtResource("12_plh0m")]
+transform = Transform3D(-2.80763, 0, -49.9211, 0, 50, 0, 49.9211, 0, -2.80763, 1.41036, -716.948, -1448.34)
+
+[node name="Walls" type="Node3D" parent="Castle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -836.432, -1399.37)
+
+[node name="Wall" parent="Castle/Walls" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -45, -6.24158, -0.629028)
+
+[node name="Wall2" parent="Castle/Walls" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -35, -6.24158, -0.629028)
+
+[node name="Wall3" parent="Castle/Walls" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -25, -6.24158, -0.629028)
+
+[node name="Wall4" parent="Castle/Walls" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -15, -6.24158, -0.629028)
+
+[node name="Wall5" parent="Castle/Walls" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -5, -6.24158, -0.629028)
+
+[node name="Wall6" parent="Castle/Walls" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 5, -6.24158, -0.629028)
+
+[node name="Wall7" parent="Castle/Walls" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 15, -6.24158, -0.629028)
+
+[node name="Wall8" parent="Castle/Walls" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 25, -6.24158, -0.629028)
+
+[node name="Wall9" parent="Castle/Walls" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 35, -6.24158, -0.629028)
+
+[node name="Wall10" parent="Castle/Walls" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 45, -6.24158, -0.629028)
+
+[node name="Walls4" type="Node3D" parent="Castle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -836.432, -1499.99)
+
+[node name="Wall" parent="Castle/Walls4" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -45, -6.24158, -0.629028)
+
+[node name="Wall2" parent="Castle/Walls4" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -35, -6.24158, -0.629028)
+
+[node name="Wall3" parent="Castle/Walls4" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -25, -6.24158, -0.629028)
+
+[node name="Wall4" parent="Castle/Walls4" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -15, -6.24158, -0.629028)
+
+[node name="Wall5" parent="Castle/Walls4" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, -5, -6.24158, -0.629028)
+
+[node name="Wall6" parent="Castle/Walls4" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 5, -6.24158, -0.629028)
+
+[node name="Wall7" parent="Castle/Walls4" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 15, -6.24158, -0.629028)
+
+[node name="Wall8" parent="Castle/Walls4" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 25, -6.24158, -0.629028)
+
+[node name="Wall9" parent="Castle/Walls4" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 35, -6.24158, -0.629028)
+
+[node name="Wall10" parent="Castle/Walls4" instance=ExtResource("8_lluiq")]
+transform = Transform3D(-4.37114e-07, 0, -10, 0, 10, 0, 10, 0, -4.37114e-07, 45, -6.24158, -0.629028)
+
+[node name="UpgradeStation" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69209, -41.4699)
+
+[node name="Desk" type="MeshInstance3D" parent="UpgradeStation"]
+transform = Transform3D(1.00207, 0, 0, 0, 1.00207, 0, 0, 0, 3.874, 0, 0, 0)
+mesh = SubResource("BoxMesh_osj0f")
+skeleton = NodePath("")
+
+[node name="Label3D" type="Label3D" parent="UpgradeStation"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 4.90622, 0)
+pixel_size = 0.04
+text = "Upgrade Station"
+
+[node name="Label3D2" type="Label3D" parent="UpgradeStation"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.0108212, 2.21284, -4.09262)
+pixel_size = 0.01
+text = "Increase Speed"
+
+[node name="Label3D3" type="Label3D" parent="UpgradeStation"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -9.05301e-08, 2.27571, 2.07109)
+pixel_size = 0.01
+text = "Increase Size"
+
+[node name="SpeedButton" type="MeshInstance3D" parent="UpgradeStation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0332417, 1.05458, -4.06774)
+mesh = SubResource("CylinderMesh_yp1qk")
+
+[node name="SizeButton" type="MeshInstance3D" parent="UpgradeStation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00121975, 1.10076, 2.47951)
+mesh = SubResource("CylinderMesh_yp1qk")
 
 [connection signal="body_entered" from="Area3D" to="Camera3D" method="_on_area_3d_body_entered"]

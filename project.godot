@@ -22,6 +22,7 @@ cylinder=""
 wall=""
 door=""
 sphere=""
+enemy=""
 
 [input]
 
