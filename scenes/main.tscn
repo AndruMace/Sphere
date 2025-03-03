@@ -1,11 +1,11 @@
 [gd_scene load_steps=25 format=3 uid="uid://5pstw7o6n8sx"]
 
-[ext_resource type="Shader" path="res://shaders/checker.gdshader" id="1_0bf2s"]
-[ext_resource type="Script" path="res://scripts/obstacle_spawner.gd" id="2_i34kh"]
-[ext_resource type="Script" path="res://scripts/sphere.gd" id="4_vq85a"]
+[ext_resource type="Shader" uid="uid://gvcvqv5uohx3" path="res://shaders/checker.gdshader" id="1_0bf2s"]
+[ext_resource type="Script" uid="uid://dejw6e4hh8vg2" path="res://scripts/obstacle_spawner.gd" id="2_i34kh"]
+[ext_resource type="Script" uid="uid://baiydmly1ugw8" path="res://scripts/sphere.gd" id="4_vq85a"]
 [ext_resource type="PackedScene" uid="uid://1ed0pclwtoqy" path="res://assets/newknight.tscn" id="5_0d4o2"]
-[ext_resource type="Script" path="res://scripts/camera_3d.gd" id="6_28h7d"]
-[ext_resource type="Script" path="res://scripts/crates.gd" id="7_4uqe7"]
+[ext_resource type="Script" uid="uid://d3u6ygxybivbl" path="res://scripts/camera_3d.gd" id="6_28h7d"]
+[ext_resource type="Script" uid="uid://dety013hh0dfr" path="res://scripts/crates.gd" id="7_4uqe7"]
 [ext_resource type="PackedScene" uid="uid://gpovwicalyqt" path="res://assets/wall.tscn" id="8_lluiq"]
 [ext_resource type="PackedScene" uid="uid://bs72ogkvdd7d6" path="res://addons/proto_controller/proto_controller.tscn" id="9_53x7s"]
 [ext_resource type="PackedScene" uid="uid://vcgirn12t05g" path="res://assets/kenney_castle-kit/Models/GLB format/wall-corner.glb" id="9_xnh7d"]
@@ -99,7 +99,7 @@ height = 0.2
 [node name="Main" type="Node3D"]
 
 [node name="ProtoController" parent="." instance=ExtResource("9_53x7s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.4901, 0.5, -40.3954)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0152, 7.0512, -36.0643)
 can_sprint = true
 can_freefly = true
 input_left = "mv_left"

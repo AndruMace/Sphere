@@ -1,10 +1,11 @@
 class_name CrateSpawner extends Node
 
-@export var crate_count: int = 40
+@export var crate_count: int = 0
 @onready var crate_1: RigidBody3D = $Crate1
 @onready var crate_mesh: MeshInstance3D = $Crate1/MeshInstance3D
 
 func _ready() -> void:
+	pass
 	print("Spawning crates: count =", crate_count)
 	spawn_crates()
 

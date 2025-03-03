@@ -11,6 +11,7 @@ var apply_speed := false
 
 func _ready() -> void:
 	var warmup_effect = particles.instantiate()
+	add_child(warmup_effect)
 	warmup_effect.queue_free()
 	contact_monitor = true
 	max_contacts_reported = 10
