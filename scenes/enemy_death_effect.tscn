@@ -1,6 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://bvek2ip5lenf7"]
+[gd_scene load_steps=20 format=3 uid="uid://dmhc113gsjlmm"]
 
 [ext_resource type="Texture2D" uid="uid://coaw6pnm166ac" path="res://assets/explosions/explosion_original.png" id="1_kosgq"]
+[ext_resource type="Script" uid="uid://s2nhssuj2ckc" path="res://scripts/enemy_death_effect.gd" id="2_2jp21"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v8luo"]
 atlas = ExtResource("1_kosgq")
@@ -123,10 +124,13 @@ animations = [{
 }]
 
 [node name="EnemyDeathEffect" type="AnimatedSprite3D"]
-transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 modulate = Color(0, 0, 0, 1)
+pixel_size = 0.1
 billboard = 1
 sprite_frames = SubResource("SpriteFrames_bte6d")
 frame = 15
 frame_progress = 1.0
 speed_scale = 4.0
+script = ExtResource("2_2jp21")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

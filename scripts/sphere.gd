@@ -1,20 +1,19 @@
 class_name Sphere extends RigidBody3D
-#const particles = preload("res://scenes/particle_playground.tscn")
+
+const WALL_DESTROY_EFFECT = preload("res://scenes/wall_destroy_effect.tscn")
 const ENEMY_DEATH_EFFECT = preload("res://scenes/enemy_death_effect.tscn")
 @export var bounce_force = 20
 var fwd = Vector3.FORWARD
 @onready var speed_label: Label = $"../UI/VBoxContainer/SpeedLabel"
 @onready var score_label: Label = $"../UI/VBoxContainer/ScoreLabel"
-var explosion
 var score := 0
 var apply_speed := false
 
 func _ready() -> void:
-	var explosion = ENEMY_DEATH_EFFECT.instantiate()
+	#explosion = ENEMY_DEATH_EFFECT.instantiate()
 	contact_monitor = true
 	max_contacts_reported = 10
 	connect("body_entered", _on_body_entered)
-
 
 func _physics_process(delta: float) -> void:
 	var current_forward_speed = linear_velocity.dot(fwd)
@@ -33,22 +32,20 @@ func _on_body_entered(body):
 		var collision_point = get_collision_point(body)
 		var collision_normal = (global_transform.origin - collision_point).normalized()
 		apply_central_impulse(collision_normal * bounce_force)
-		var explosion = ENEMY_DEATH_EFFECT.instantiate()
-		get_tree().get_current_scene().add_child(explosion)
-		explosion.position = body.position
-		explosion.position.y += 2
-		explosion.play()
+		var enemy_death = ENEMY_DEATH_EFFECT.instantiate()
+		get_tree().get_current_scene().add_child(enemy_death)
+		enemy_death.position = body.position
+		enemy_death.position.y += 2
+		enemy_death.play()
 		body.queue_free()
 
-		#await get_tree().create_timer(1.0).timeout # waits for 1 second
-		#explosion.queue_free()
-	#if body.is_in_group("wall"):
-		##var collision_point = get_collision_point(body)
-		#var to_center_direction = Vector3(0, position.y, position.z).normalized()
-		##to_center_direction.y = 0
-		##to_center_direction = to_center_direction.normalized()
-		##var collision_normal = (global_transform.origin - collision_point).normalized()
-		#apply_central_impulse(to_center_direction * bounce_force)
+	if body.is_in_group("wall"):
+		var explosion = WALL_DESTROY_EFFECT.instantiate()
+		get_tree().get_current_scene().add_child(explosion)
+		explosion.position = body.global_position
+		explosion.position.y += 5
+		explosion.play()
+		body.queue_free()
 
 func get_collision_point(body):
 	return body.global_transform.origin

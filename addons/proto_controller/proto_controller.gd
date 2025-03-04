@@ -7,7 +7,7 @@ extends CharacterBody3D
 @onready var push_label: Label = $"../UI/CenterContainer/PushLabel"
 @onready var ray: RayCast3D = $RayCast3D
 @onready var sphere: Sphere = $"../Sphere"
-@export var push_strength := 3
+@export var push_strength := 7
 
 ## Can we move around?
 @export var can_move : bool = true
