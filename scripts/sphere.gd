@@ -10,10 +10,17 @@ var score := 0
 var apply_speed := false
 
 func _ready() -> void:
-	#explosion = ENEMY_DEATH_EFFECT.instantiate()
 	contact_monitor = true
 	max_contacts_reported = 10
 	connect("body_entered", _on_body_entered)
+	
+	await get_tree().create_timer(0.5).timeout
+	var warm_explosion = WALL_DESTROY_EFFECT.instantiate()
+	add_child(warm_explosion)
+	warm_explosion.play()
+	var warm_enemy_death = ENEMY_DEATH_EFFECT.instantiate()
+	add_child(warm_enemy_death)
+	warm_enemy_death.play()
 
 func _physics_process(delta: float) -> void:
 	var current_forward_speed = linear_velocity.dot(fwd)
