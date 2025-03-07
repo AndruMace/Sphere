@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjyf61rvjubws"
 path.s3tc="res://.godot/imported/Knight_knight_texture.png-c5998b7a0585259f296d4d31a79f71c5.s3tc.ctex"
+path.etc2="res://.godot/imported/Knight_knight_texture.png-c5998b7a0585259f296d4d31a79f71c5.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/Knight_knight_texture.png"
-dest_files=["res://.godot/imported/Knight_knight_texture.png-c5998b7a0585259f296d4d31a79f71c5.s3tc.ctex"]
+dest_files=["res://.godot/imported/Knight_knight_texture.png-c5998b7a0585259f296d4d31a79f71c5.s3tc.ctex", "res://.godot/imported/Knight_knight_texture.png-c5998b7a0585259f296d4d31a79f71c5.etc2.ctex"]
 
 [params]
 

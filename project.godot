@@ -22,6 +22,9 @@ wall=""
 door=""
 sphere=""
 enemy=""
+castle=""
+EndZone=""
+speedButton=""
 
 [input]
 

@@ -3,11 +3,14 @@
 # Intended for rapid prototyping of first-person games.
 # Happy prototyping!
 extends CharacterBody3D
-
+@onready var mass_label: Label3D = $"../UpgradeStation/SizeButton/SizeButtonMesh/Label3D3"
+@onready var sphere_collider: CollisionShape3D = $"../Sphere/CollisionShape3D"
+@onready var knight: Node3D = $"../Sphere/Knight"
 @onready var push_label: Label = $"../UI/CenterContainer/PushLabel"
 @onready var ray: RayCast3D = $RayCast3D
 @onready var sphere: Sphere = $"../Sphere"
-@export var push_strength := 7
+@export var push_strength := 12
+@onready var score_label: Label = $"../UI/VBoxContainer/ScoreLabel"
 
 ## Can we move around?
 @export var can_move : bool = true
@@ -64,18 +67,16 @@ func _ready() -> void:
 	look_rotation.x = head.rotation.x
 
 func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("reset"):
-		get_tree().reload_current_scene()
 	# Mouse capturing
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 		capture_mouse()
 	if Input.is_key_pressed(KEY_ESCAPE):
 		release_mouse()
-	
+
 	# Look around
 	if mouse_captured and event is InputEventMouseMotion:
 		rotate_look(event.relative)
-	
+
 	# Toggle freefly mode
 	if can_freefly and Input.is_action_just_pressed(input_freefly):
 		if not freeflying:
@@ -83,7 +84,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			disable_freefly()
 
+func reset():
+	sphere.reset()
+	position = Vector3(-19.708, 2.611, -36.064)
+	$Head/Camera3D.current = true
+	look_at(sphere.position)
+
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("reset"):
+		reset()
+		
 	if ray.is_colliding():
 		var obj = ray.get_collider()
 		if obj.is_in_group("sphere"):
@@ -91,6 +101,19 @@ func _physics_process(delta: float) -> void:
 			if Input.is_action_just_pressed("interact"):
 				var push_direction: Vector3 = (obj.position - position).normalized()
 				obj.apply_central_impulse(push_direction * push_strength)
+		elif (obj.is_in_group("speedButton")):
+			push_label.text = "Press [E] to increase speed"
+			if Input.is_action_just_pressed("interact") and sphere.score > 50:
+				score_label.text = str(sphere.score - 50)
+				sphere.speed_multi += 10
+				sphere.score -= 50
+		elif (obj.is_in_group("sizeButton")):
+			push_label.text = "Press [E] to increase mass"
+			if Input.is_action_just_pressed("interact") and sphere.score >= 50:
+				score_label.text = str(sphere.score - 50)
+				sphere.mass += 1
+				sphere.score -= 50
+				mass_label.text = "Mass (50pts) \n(Current: " + str(sphere.mass) + ")"
 		else:
 			push_label.text = ""
 	else:
